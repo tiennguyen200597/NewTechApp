@@ -1,4 +1,3 @@
-
 import {createStackNavigator, createAppContainer} from 'react-navigation';
 import Login from './pages/Login';
 import Home from './pages/Home';
