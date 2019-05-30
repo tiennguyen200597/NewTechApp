@@ -13,7 +13,7 @@ export default class Home extends Component {
           <Card>
             <CardItem>
               <Left>
-                <Thumbnail source={{uri: 'Image URL'}} />
+                <Thumbnail source={require('../assets/avata2.png')} />
                 <Body>
                   <Text>NativeBase</Text>
                   <Text note>GeekyAnts</Text>
@@ -21,30 +21,41 @@ export default class Home extends Component {
               </Left>
             </CardItem>
             <CardItem cardBody>
-              <Image source={{uri: 'Image URL'}} style={{height: 200, width: null, flex: 1}}/>
+              <Image source={require('../assets/photo.png')} style={{height: 200, width: null, flex: 1}}/>
+            </CardItem>
+            <CardItem>
+              <Left> 
+                  <Text>12 Likes </Text>
+              </Left>
+              <Right>
+                  <Text>4 Comments</Text>
+              </Right>              
             </CardItem>
             <CardItem>
               <Left>
                 <Button transparent>
                   <Icon active name="thumbs-up" />
-                  <Text>12 Likes</Text>
+                  <Text>Like</Text>
                 </Button>
               </Left>
               <Body>
                 <Button transparent>
                   <Icon active name="chatbubbles" />
-                  <Text>4 Comments</Text>
+                  <Text>Comment</Text>
                 </Button>
               </Body>
               <Right>
-                <Text>11h ago</Text>
+              <Button transparent>
+                  <Icon active name="paper-plane" />
+                  <Text>Share</Text>
+                </Button>
               </Right>
             </CardItem>
           </Card>
           <Card>
             <CardItem>
               <Left>
-                <Thumbnail source={{uri: 'Image URL'}} />
+                <Thumbnail source={require('../assets/avata1.png')} />
                 <Body>
                   <Text>NativeBase</Text>
                   <Text note>GeekyAnts</Text>
@@ -52,23 +63,34 @@ export default class Home extends Component {
               </Left>
             </CardItem>
             <CardItem cardBody>
-              <Image source={{uri: 'Image URL'}} style={{height: 200, width: null, flex: 1}}/>
+              <Image source={require('../assets/photo.png')} style={{height: 200, width: null, flex: 1}}/>
+            </CardItem>
+            <CardItem>
+              <Left> 
+                  <Text>12 Likes</Text>
+              </Left>
+              <Right>
+                  <Text>4 Comments</Text>
+              </Right>              
             </CardItem>
             <CardItem>
               <Left>
                 <Button transparent>
                   <Icon active name="thumbs-up" />
-                  <Text>12 Likes</Text>
+                  <Text>Like</Text>
                 </Button>
               </Left>
               <Body>
                 <Button transparent>
                   <Icon active name="chatbubbles" />
-                  <Text>4 Comments</Text>
+                  <Text>Comment</Text>
                 </Button>
               </Body>
               <Right>
-                <Text>11h ago</Text>
+              <Button transparent>
+                  <Icon active name="paper-plane" />
+                  <Text>Share</Text>
+                </Button>
               </Right>
             </CardItem>
           </Card>

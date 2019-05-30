@@ -168,6 +168,8 @@ import {
     Text,
     Dimensions,
     TouchableOpacity,
+    KeyboardAvoidingView,
+    ScrollView
 } from 'react-native';
 import { View } from 'native-base';
 import { TextInput } from 'react-native-gesture-handler';
@@ -190,8 +192,10 @@ export default class Login extends Component{
     }
   }
   render(){
-    const {navigate} = this.props.navigation;
-    return(
+    const {navigate} = this.props.navigation; 
+    return(      
+      <ScrollView>  
+      <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>  
       <ImageBackground style={styles.backgroundContainer} source={require('../assets/background.png')}>
           <View style={styles.logoContainer}>
             <Image style={styles.logo} source={require('../assets/logo.png')}></Image>
@@ -220,32 +224,40 @@ export default class Login extends Component{
           <TouchableOpacity onPress={() => navigate('Home')} style={styles.bntLogin} >
               <Text style={styles.text}>Login</Text>
             </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigate('SignUp')} style={styles.bntSignUp} >
+              <Text style={styles.text}>Don't have an account? Sign Up</Text>
+            </TouchableOpacity>
       </ImageBackground>
+      </KeyboardAvoidingView>
+      </ScrollView>
+     
     );
   }
 }
 const styles=StyleSheet.create(
   {
-    backgroundContainer:{
-      flexGrow: 1,
-      justifyContent:'center',
-      width:null,
-      height:null,
+    backgroundContainer:{   
+      flex: 1,   
+      justifyContent:'center', 
+      height:800,
       alignItems:'center'
     },
     logoContainer:{
         alignItems:'center'
     },
     logo:{
+      marginTop:150,
       width: 120,
       height: 120
     },
     logoText:{
       color:'white',
-      fontSize: 20,
+      fontSize: 36,
       fontWeight:'500',
-      marginTop:10,
-      opacity:0.5
+      margin:16,
+      marginBottom:50
+     
+      
     },
     input:{
       width:WIDTH-55,
@@ -266,7 +278,7 @@ const styles=StyleSheet.create(
     },
     inputContainer:{
       alignItems:'center',
-      marginBottom:48
+      marginBottom:32
     },
     bntEye:{
       opacity:0.5,
@@ -286,6 +298,16 @@ const styles=StyleSheet.create(
       color:'rgba(255, 255,255, 0.7)',
       fontSize:16,
       textAlign:'center'
+    },
+    container:{
+      flexGrow :1,    
+      width:null,
+      height:500,
+      margin:0, 
+      paddingHorizontal:-5
+    },
+    bntSignUp:{
+      marginTop:150
     }
     
   }

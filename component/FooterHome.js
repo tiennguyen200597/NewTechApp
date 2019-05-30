@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { 
   Container, Header, Content,
    Card, CardItem, Thumbnail, Text, Button,
@@ -11,26 +11,37 @@ import {
                 <FooterTab>
                   <Button vertical>
                     <Icon name="apps" />
-                    <Text>Apps</Text>
+                    <Text style={styles.text}>Home</Text>
                   </Button>
                   <Button vertical>
                     <Icon name="camera" />
-                    <Text>Camera</Text>
+                    <Text style={styles.text}>Me</Text>
                   </Button>
                   <Button vertical active>
                     <Icon active name="navigate" />
-                    <Text>Massage</Text>
+                    <Text style={styles.text}>Massages</Text>
                   </Button>
                   <Button vertical>
                     <Icon name="person" />
-                    <Text>Me</Text>
+                    <Text style={styles.text}>Netword</Text>
                   </Button>
                   <Button vertical>
                     <Icon name="search" />
-                    <Text>Search</Text>
+                    <Text style={styles.text}>Search</Text>
                   </Button>
                 </FooterTab>
               </Footer>
           );
         }
       }
+      const styles=StyleSheet.create(
+        {
+          
+          text:{          
+            fontSize:9,
+            textAlign:'center'
+          },
+          
+          
+        }
+      )
