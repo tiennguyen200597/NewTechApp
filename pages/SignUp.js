@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { View } from 'native-base';
 import { TextInput } from 'react-native-gesture-handler';
+import {FirebaseApp} from '../component/FirebaseConf';
 const {width:WIDTH}=Dimensions.get('window');
 import { Container, Header, Content, Form, Item, Input, Icon,Button,} from 'native-base';
 export default class SignUp extends Component{
@@ -19,7 +20,9 @@ export default class SignUp extends Component{
     // set giá trị của biến ẩn hiện password
     this.state={
       showPassword:true,
-      press:false
+      press:false,
+      email: '',
+      password: ''
     }
   }
   // hàm thay đổi giá trị của biến ẩn hiện pass
@@ -31,10 +34,42 @@ export default class SignUp extends Component{
       this.setState({showPassword:true,press:false})
     }
   }
+  // hàm đăng kí
+  signup() {
+    this.setState({
+      // When waiting for the firebase server show the loading indicator.
+      loading: true,
+      
+    });
+
+    // Make a call to firebase to create a new user.
+    this.props.firebaseApp.auth().createUserWithEmailAndPassword(
+      this.state.email,
+      this.state.password).then(() => {
+        // then and catch are methods that we call on the Promise returned from
+        // createUserWithEmailAndPassword
+        alert('Your account was created!');
+        this.setState({
+          // Clear out the fields when the user logs in and hide the progress indicator.
+          email: '',
+          password: '',
+          loading: false
+        });
+        this.props.navigator.push({
+          component: Login
+        });
+    }).catch((error) => {
+      // Leave the fields filled when an error occurs and hide the progress indicator.
+      this.setState({
+        loading: false
+      });
+      alert("Account creation failed: " + error.message );
+    });
+  }
   render(){
     const {navigate} = this.props.navigation;
     return(      
-      <ScrollView showsVerticalScrollIndicator={false}>  
+      <ScrollView>  
       <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>  
       <ImageBackground style={styles.backgroundContainer} source={require('../assets/background.png')}>
           <View style={styles.logoContainer}>
@@ -85,8 +120,7 @@ export default class SignUp extends Component{
 }
 const styles=StyleSheet.create(
   {
-    backgroundContainer:{   
-      flex: 1,   
+    backgroundContainer:{         
       justifyContent:'center', 
       height:800,
       alignItems:'center'
