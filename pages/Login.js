@@ -99,15 +99,15 @@ export default class Login extends Component {
                 <Icon active name={'eye'} />
               </TouchableOpacity>
             </View>
-            <TouchableOpacity onPress={() => navigate('Home')} style={styles.bntLogin} >
+            <TouchableOpacity onPress={() => navigate('Admin')} style={styles.bntLogin} >
               <Text style={styles.text}>Login</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigate('SignUp')} style={styles.bntSignUp} >
+            <TouchableOpacity onPress={() => navigate('SignUp')} style={styles.btnSignUp} >
               <Text style={styles.text}>Don't have an account? Sign Up</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>this.HttpPost()} style={styles.bntSignUp} >
+            {/* <TouchableOpacity onPress={()=>this.HttpPost()} style={styles.btnSignUp} >
               <Text style={styles.text}>Don't have an account? Sign Up</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </ImageBackground>
         </KeyboardAvoidingView>
       </ScrollView>
@@ -187,7 +187,7 @@ const styles = StyleSheet.create(
       margin: 0,
       paddingHorizontal: -5
     },
-    bntSignUp: {
+    btnSignUp: {
       marginTop: 150
     }
 

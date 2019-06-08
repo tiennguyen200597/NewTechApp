@@ -15,14 +15,15 @@ import {FirebaseApp} from '../component/FirebaseConf';
 const {width:WIDTH}=Dimensions.get('window');
 import { Container, Header, Content, Form, Item, Input, Icon,Button,} from 'native-base';
 export default class SignUp extends Component{
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     // set giá trị của biến ẩn hiện password
     this.state={
       showPassword:true,
       press:false,
       email: '',
-      password: ''
+      password: '',
+      repassword: ''
     }
   }
   // hàm thay đổi giá trị của biến ẩn hiện pass
@@ -35,36 +36,51 @@ export default class SignUp extends Component{
     }
   }
   // hàm đăng kí
-  signup() {
-    this.setState({
-      // When waiting for the firebase server show the loading indicator.
-      loading: true,
+  // signUpUser() {
+  //   this.setState({
+  //     // When waiting for the firebase server show the loading indicator.
+  //     loading: true,
       
-    });
+  //   });
 
-    // Make a call to firebase to create a new user.
-    this.props.firebaseApp.auth().createUserWithEmailAndPassword(
-      this.state.email,
-      this.state.password).then(() => {
-        // then and catch are methods that we call on the Promise returned from
-        // createUserWithEmailAndPassword
-        alert('Your account was created!');
-        this.setState({
-          // Clear out the fields when the user logs in and hide the progress indicator.
-          email: '',
-          password: '',
-          loading: false
-        });
-        this.props.navigator.push({
-          component: Login
-        });
-    }).catch((error) => {
-      // Leave the fields filled when an error occurs and hide the progress indicator.
-      this.setState({
-        loading: false
-      });
-      alert("Account creation failed: " + error.message );
-    });
+  //   // Make a call to firebase to create a new user.
+  //   this.props.firebaseApp.auth().createUserWithEmailAndPassword(
+  //     this.state.email,
+  //     this.state.password).then(() => {
+  //       // then and catch are methods that we call on the Promise returned from
+  //       // createUserWithEmailAndPassword
+  //       alert('Your account was created!');
+  //       this.setState({
+  //         // Clear out the fields when the user logs in and hide the progress indicator.
+  //         email: '',
+  //         password: '',
+  //         loading: false
+  //       });
+  //       this.props.navigator.push({
+  //         component: Login
+  //       });
+  //   }).catch((error) => {
+  //     // Leave the fields filled when an error occurs and hide the progress indicator.
+  //     this.setState({
+  //       loading: false
+  //     });
+  //     alert("Account creation failed: " + error.message );
+  //   });
+  // }
+  signUpUser=(email,password)=>{
+    try {
+      if(this.state.password<6){
+        alert('Please anter atltlest 6 chartacters');
+        return;
+      }
+      if(this.state.password!=this.state.repassword){
+        alert('mat khau nhap lai khong dung');
+        return;
+      }
+      FirebaseApp.auth().createUserWithEmailAndPassword(email,password)
+    } catch (error) {
+      console.log(error.toString())
+    }
   }
   render(){
     const {navigate} = this.props.navigation;
@@ -80,8 +96,10 @@ export default class SignUp extends Component{
           <Icon active name={'person'} style={styles.Icon} />
             <TextInput
               style={styles.input}
-              placeholder={'Username'}
-              placeholderTextColor={'rgba(255, 255, 255, 0.7)'}              
+              placeholder={'Email'}
+              placeholderTextColor={'rgba(255, 255, 255, 0.7)'}   
+              onChangeText={(email)=>this.setState({email})}    
+              value={this.state.email}       
             />
           </View>
           <View style={styles.inputContainer}>
@@ -90,9 +108,12 @@ export default class SignUp extends Component{
               style={styles.input}
               placeholder={'Password'}
               secureTextEntry={this.state.showPassword}
-              placeholderTextColor={'rgba(255, 255, 255, 0.7)'}              
+              placeholderTextColor={'rgba(255, 255, 255, 0.7)'         
+              }     
+              onChangeText={(password)=>this.setState({password})}    
+              value={this.state.password}     
             />
-            <TouchableOpacity onPress={this.showPass.bind(this)} style={styles.bntEye} >
+            <TouchableOpacity onPress={this.showPass.bind(this)} style={styles.btnEye} >
               <Icon active name={'eye'}/>
             </TouchableOpacity>
           </View>
@@ -102,13 +123,14 @@ export default class SignUp extends Component{
               style={styles.input}
               placeholder={'RePassword'}
               secureTextEntry={this.state.showPassword}
-              placeholderTextColor={'rgba(255, 255, 255, 0.7)'}              
+              placeholderTextColor={'rgba(255, 255, 255, 0.7)'}   
+              onChangeText={(repassword)=>this.setState({repassword})}           
             />
-            <TouchableOpacity onPress={this.showPass.bind(this)} style={styles.bntEye} >
+            <TouchableOpacity onPress={()=>this.showPass()} style={styles.bntEye} >
               <Icon active name={'eye'}/>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={() => navigate('Home')} style={styles.bntLogin} >
+          <TouchableOpacity onPress={() => this.signUpUser()} style={styles.btnLogin} >
               <Text style={styles.text}>Sign Up</Text>
             </TouchableOpacity>
       </ImageBackground>
@@ -160,13 +182,13 @@ const styles=StyleSheet.create(
       alignItems:'center',
       marginBottom:32
     },
-    bntEye:{
+    btnEye:{
       opacity:0.5,
       position:'absolute',
       top:8,
       right:37
     },
-    bntLogin:{
+    btnLogin:{
       width:WIDTH-55,
       height:45,
       backgroundColor:'#432577',
